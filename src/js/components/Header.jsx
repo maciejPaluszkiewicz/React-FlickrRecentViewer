@@ -7,14 +7,6 @@ import Typography from "@material-ui/core/Typography";
 
 const Header = () => (
   <div>
-    {/* <img src={logo} alt="logo" />
-    <h1 className="header" />
-    <div class="RecentImages">
-      <h2>Recent Images</h2>
-    </div>
-    <div className="MyFavorites">
-      <h2>Favorites</h2>
-    </div> */}
     <AppBar position="static">
       <Toolbar>
         <Typography variant="title" color="inherit">

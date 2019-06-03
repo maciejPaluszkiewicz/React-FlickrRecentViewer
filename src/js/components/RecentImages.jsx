@@ -1,20 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
+import Image from "./Image";
+import { selectPhoto } from "../actions";
 import "./recentImages.css";
 
 const mapStateToProps = state => {
   return { photos: state.photos };
 };
 
-const RecentImages = ({ photos }) => (
+const mapDispatchToProps = dispatch => {
+  return {
+    selectImage: id => dispatch(selectPhoto(id))
+  };
+};
+const RecentImages = props => (
   <div className="recentBox">
     <div className="recentImages">
-      {photos.map(el => (
-        <span key={el.id} className={el.selected ? "selectedImage" : ""}>
-          <img src={el.url} />
-        </span>
+      {props.photos.map(el => (
+        <Image {...el} key={el.id} handleClick={props.selectImage} />
       ))}
     </div>
   </div>
 );
-export default connect(mapStateToProps)(RecentImages);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RecentImages);

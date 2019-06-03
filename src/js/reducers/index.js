@@ -1,6 +1,6 @@
 // src/js/reducers/index.js
 
-// import { SELECT_PHOTO } from "../constants/action-types";
+import { SELECT_PHOTO } from "../constants/action-types";
 const initialState = {
   photos: [
     {
@@ -66,11 +66,14 @@ const initialState = {
   ]
 };
 function rootReducer(state = initialState, action) {
-  // if (action.type === SELECT_PHOTO) {
-  //   return Object.assign({}, state, {
-  //     photos: state.photos.concat(action.payload)
-  //   });
-  // }
+  if (action.type === SELECT_PHOTO) {
+    return Object.assign({}, state, {
+      photos: state.photos.map(el => {
+        if (el.id === action.payload) el.selected = !el.selected;
+        return el;
+      })
+    });
+  }
 
   return state;
 }

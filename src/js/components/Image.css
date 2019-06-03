@@ -1,0 +1,10 @@
+.imageContainer img {
+  border-radius: 5px;
+  border: 6px solid white;
+}
+
+.selectedImage img {
+  border: 6px solid red;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
