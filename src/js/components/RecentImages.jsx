@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Image from "./Image";
 import { selectPhoto } from "../actions";
-import "./recentImages.css";
+import "./RecentImages.css";
 
 const mapStateToProps = state => {
   return { photos: state.photos };

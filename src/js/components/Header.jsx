@@ -1,10 +1,16 @@
 import React from "react";
-import "./header.css";
+import "./Header.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
+import flckr from "../images/flckr.png";
+import { relative } from "path";
 
 const RecentPhotosLink = React.forwardRef((props, ref) => (
   <Link innerRef={ref} to="/" {...props} />
@@ -14,22 +20,71 @@ const FavoritesLink = React.forwardRef((props, ref) => (
   <Link innerRef={ref} to="/favs" {...props} />
 ));
 
-const Header = () => (
-  <div>
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="title" color="inherit">
-          FLICKRecentViewer
-        </Typography>
-        <Button color="inherit" component={RecentPhotosLink}>
-          RECENT PHOTOS
-        </Button>
-        <Button color="inherit" component={FavoritesLink}>
-          FAVORITES
-        </Button>
-      </Toolbar>
-    </AppBar>
-  </div>
-);
+const useStylesFunction = makeStyles(theme => ({
+  grow: {
+    flexGrow: 1
+  },
+  button: {
+    display: "inline-block",
+    position: "relative",
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(1)
+  },
+  avatar: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(1),
+    position: "relative"
+  },
+  input: {
+    display: "none"
+  }
+}));
 
+const Header = () => {
+  const useStyles = useStylesFunction();
+
+  return (
+    <div className={useStyles.grow}>
+      <AppBar position="static" m={12}>
+        <Toolbar>
+          <Typography variant="title" color="inherit" m={12}>
+            FLICKRecentViewer
+          </Typography>
+          {/* <Grid justify="space-between" display="inline"> */}
+          <div className={useStyles.grow} />
+          <Box>
+            <Button
+              variant="contained"
+              className={useStyles.button}
+              component={RecentPhotosLink}
+              // p={1}
+              // m={12}
+            >
+              RECENT PHOTOS
+            </Button>
+          </Box>
+          <Box>
+            <Button
+              variant="contained"
+              className={useStyles.button}
+              component={FavoritesLink}
+              // p={1}
+              // m={12}
+            >
+              FAVORITES
+            </Button>
+          </Box>
+          {/* </Grid> */}
+          {/* <Grid> */}
+          <Avatar
+            alt="LOG IN to FLICKR"
+            src={flckr}
+            className={useStyles.avatar}
+          />
+          {/* </Grid> */}
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+};
 export default Header;
