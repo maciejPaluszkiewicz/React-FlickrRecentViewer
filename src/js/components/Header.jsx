@@ -7,10 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+
 import Avatar from "@material-ui/core/Avatar";
 import flckr from "../images/flckr.png";
-import { relative } from "path";
 
 const RecentPhotosLink = React.forwardRef((props, ref) => (
   <Link innerRef={ref} to="/" {...props} />
@@ -50,15 +49,13 @@ const Header = () => {
           <Typography variant="title" color="inherit" m={12}>
             FLICKRecentViewer
           </Typography>
-          {/* <Grid justify="space-between" display="inline"> */}
+
           <div className={useStyles.grow} />
           <Box>
             <Button
               variant="contained"
               className={useStyles.button}
               component={RecentPhotosLink}
-              // p={1}
-              // m={12}
             >
               RECENT PHOTOS
             </Button>
@@ -68,20 +65,16 @@ const Header = () => {
               variant="contained"
               className={useStyles.button}
               component={FavoritesLink}
-              // p={1}
-              // m={12}
             >
               FAVORITES
             </Button>
           </Box>
-          {/* </Grid> */}
-          {/* <Grid> */}
+
           <Avatar
             alt="LOG IN to FLICKR"
             src={flckr}
             className={useStyles.avatar}
           />
-          {/* </Grid> */}
         </Toolbar>
       </AppBar>
     </div>
