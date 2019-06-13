@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Image from "./Image";
-import { selectPhoto } from "../actions";
+import { fetchPhoto, selectPhoto } from "../actions";
 import "./RecentImages.css";
 
 const mapStateToProps = state => {
@@ -10,18 +10,24 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    selectImage: id => dispatch(selectPhoto(id))
+    selectImage: id => dispatch(selectPhoto(id)),
+    fetchPhoto: () => dispatch(fetchPhoto())
   };
 };
-const RecentImages = props => (
-  <div className="recentBox">
-    <div className="recentImages">
-      {props.photos.map(el => (
-        <Image {...el} key={el.id} handleClick={props.selectImage} />
-      ))}
+const RecentImages = props => {
+  useEffect(props.fetchPhoto, []);
+
+  return (
+    <div className="recentBox">
+      <div className="recentImages">
+        {props.photos.map(el => (
+          <Image {...el} key={el.id} handleClick={props.selectImage} />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
