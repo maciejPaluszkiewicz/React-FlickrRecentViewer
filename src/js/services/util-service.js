@@ -17,8 +17,38 @@ const translateRecentPhotos = rawPhotos => {
   return translatedPhotos;
 };
 
+//     url: "https://loremflickr.com/320/240?random=52",
+//     id: 52,
+//     title: "CAT_52",
+//     owner: "whoevernotme",
+//     date: "yestoday",
+//     stats: { views: 32, favorites: 4000, comments: 555 }
+
+/* <stats views="24" comments="4" favorites="1" /> */
+
+const translateFavoritePhotos = rawFavPhotos => {
+  const translatedFavPhotos = rawFavPhotos.map(photo => {
+    return {
+      url: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${
+        photo.id
+      }_${photo.secret}_n.jpg`,
+      id: photo.id,
+      title: photo.title,
+      owner: photo.owner,
+      //   date: photo.dates.taken,
+      stats: {
+        //     views: photo.stats.views,
+        //     favorites: photo.stats.favorites,
+        //     comments: photo.stats.comments
+      }
+    };
+  });
+  return translatedFavPhotos;
+};
+
 const utilService = {
-  translateRecentPhotos
+  translateRecentPhotos,
+  translateFavoritePhotos
 };
 
 export default utilService;

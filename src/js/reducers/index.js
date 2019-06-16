@@ -4,13 +4,17 @@ import {
   SELECT_PHOTO,
   FETCH_PHOTO_PENDING,
   FETCH_PHOTO_SUCCESS,
-  FETCH_PHOTO_FAILURE
+  FETCH_PHOTO_FAILURE,
+  FETCH_FAVPHOTO_PENDING,
+  FETCH_FAVPHOTO_SUCCESS,
+  FETCH_FAVPHOTO_FAILURE
 } from "../constants/action-types";
 
 const initialState = {
   isFetchingPhotos: false,
   error: null,
-  photos: []
+  photos: [],
+  favs: []
   // photos: [
   //   {
   //     url: "https://loremflickr.com/320/240?random=1",
@@ -146,6 +150,32 @@ function rootReducer(state = initialState, action) {
     };
   }
 
+  if (action.type === FETCH_FAVPHOTO_PENDING) {
+    return {
+      ...state,
+      isFetchingPhotos: true,
+      error: null,
+      favs: []
+    };
+  }
+
+  if (action.type === FETCH_FAVPHOTO_SUCCESS) {
+    console.log(action.payload);
+
+    return {
+      ...state,
+      isFetchingPhotos: false,
+      favs: action.payload
+    };
+  }
+
+  if (action.type === FETCH_FAVPHOTO_FAILURE) {
+    return {
+      ...state,
+      isFetchingPhotos: false,
+      error: action.payload
+    };
+  }
   return state;
 }
 export default rootReducer;
