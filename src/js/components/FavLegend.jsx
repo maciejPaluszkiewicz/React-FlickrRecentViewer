@@ -42,11 +42,9 @@ const FavLegend = props => {
         >
           <span>
             Views:{" "}
-            <Box style={{ fontSize: 16, display: "inline" }}>
-              {props.stats.views}
-            </Box>{" "}
+            <Box style={{ fontSize: 16, display: "inline" }}>{props.views}</Box>{" "}
           </span>
-          <span>
+          {/* <span>
             Favorites:{" "}
             <Box style={{ fontSize: 16, display: "inline" }}>
               {props.stats.favorites}{" "}
@@ -57,7 +55,7 @@ const FavLegend = props => {
             <Box style={{ fontSize: 16, display: "inline" }}>
               {props.stats.comments}{" "}
             </Box>
-          </span>
+          </span> */}
         </Box>
       </div>
     </Typography>

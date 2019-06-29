@@ -34,13 +34,12 @@ const translateFavoritePhotos = rawFavPhotos => {
       }_${photo.secret}_n.jpg`,
       id: photo.id,
       title: photo.title,
-      owner: photo.owner,
-      //   date: photo.dates.taken,
-      stats: {
-        //     views: photo.stats.views,
-        //     favorites: photo.stats.favorites,
-        //     comments: photo.stats.comments
-      }
+      owner: photo.ownername,
+      date: new Date(photo.dateupload * 1000).toLocaleDateString("pl-PL"),
+      views: photo.views
+      //     views: photo.stats.views,
+      //     favorites: photo.stats.favorites,
+      //     comments: photo.stats.comments
     };
   });
   return translatedFavPhotos;

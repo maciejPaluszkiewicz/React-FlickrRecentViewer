@@ -8,9 +8,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { fetchFavPhoto } from "../actions/index";
 import Spinner from "./Spinner";
+import { spacing } from "@material-ui/system";
 
 const mapStateToProps = state => {
-  return { favs: state.favs };
+  return { favs: state.root.favs };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -21,7 +22,8 @@ const mapDispatchToProps = dispatch => {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    paddingTop: 90
   },
   paper: {
     padding: theme.spacing(2),

@@ -5,16 +5,22 @@ import Favorites from "./js/components/Favorites";
 import SignIn from "./js/components/SignIn";
 import "./App.css";
 import { BrowserRouter, Route } from "react-router-dom";
+import { StickyContainer, Sticky } from "react-sticky";
 
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <Header />
-        <Route path="/" exact component={RecentImages} />
-        <Route path="/sign" exact component={SignIn} />
-        <Route path="/favs" exact component={Favorites} />
-      </div>
+      <StickyContainer>
+        <div>
+          <Sticky position="fixed">
+            {({ style = { relative: true } }) => <Header style={style} />}
+          </Sticky>
+
+          <Route path="/" exact component={RecentImages} />
+          <Route path="/sign" exact component={SignIn} />
+          <Route path="/favs" exact component={Favorites} />
+        </div>
+      </StickyContainer>
     </BrowserRouter>
   );
 }

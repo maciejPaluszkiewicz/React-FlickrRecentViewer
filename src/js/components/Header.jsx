@@ -36,6 +36,11 @@ const useStylesFunction = makeStyles(theme => ({
   },
   input: {
     display: "none"
+  },
+  standard: {
+    fontWeight: 500,
+    fontSize: 24,
+    fontFamily: ("Roboto", "Helvetica", "Arial", "sans-serif")
   }
 }));
 
@@ -44,12 +49,18 @@ const Header = () => {
 
   return (
     <div className={useStyles.grow}>
-      <AppBar position="static" m={12}>
+      <AppBar position="static" m={12} position="fixed">
         <Toolbar>
-          <Typography variant="title" color="inherit" m={12}>
-            FLICKRecentViewer
-          </Typography>
-
+          <Box>
+            <Typography
+              className={useStyles.standard}
+              // variant="title"
+              // color="inherit"
+              // m={12}
+            >
+              <Box className={useStyles.standard}>FLICKRecentViewer</Box>
+            </Typography>
+          </Box>
           <div className={useStyles.grow} />
           <Box>
             <Button

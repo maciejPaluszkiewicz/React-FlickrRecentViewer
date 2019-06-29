@@ -3,16 +3,24 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-
 import SignInIcon from "../images/flckr.png";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { connect } from "react-redux";
+import { actions, signin, signout } from "react-redux-oauth2";
+import compose from "recompose/compose";
 
-const useStyles = makeStyles(theme => ({
+import { OAUTH_URL, USER_ID, API_KEY } from "../services/flickr-service";
+
+const mapStateToProps = state => {
+  return { oauth: state.oauth };
+};
+// const mapDispatchToProps = dispatch => ({});
+
+const useStyles = theme => ({
   "@global": {
     body: {
       backgroundColor: theme.palette.common.white
@@ -35,70 +43,143 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2)
   }
-}));
+});
 
-export default function SignIn() {
-  const classes = useStyles();
+class SignIn extends React.Component {
+  // constructor(){
+  //     super();
+  //     this.classes  = useStyles();
+  // }
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar
-          className={classes.avatar}
-          alt="LOG IN to FLICKR"
-          src={SignInIcon}
-        />
+  componentWillMount() {
+    // const { classes } = this.props;
+    const { dispatch } = this.props;
+    dispatch(
+      actions.config({
+        token: "request_token",
+        client_id: USER_ID,
+        client_secret: API_KEY,
+        url: OAUTH_URL,
+        providers: {
+          flickr: "authorize"
+        }
+      })
+    );
+  }
+  async handleSignin(e) {
+    const { dispatch } = this.props;
+    e.preventDefault();
+    console.log(
+      await dispatch(
+        actions.signin(
+          {
+            username: this.refs.username.value,
+            password: this.refs.password.value
+          },
+          console.log
+        )
+      ),
+      "====="
+    );
+  }
 
-        <Typography component="h1" variant="h5">
-          Sign in to Flickr
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
+  render() {
+    // const classes = useStyles();
+
+    const { oauth } = this.props;
+    const Signin = signin({
+      success(user) {
+        console.log(user);
+      }
+    })(props => <button {...props} />);
+    const Signout = signout({
+      success() {
+        console.log(arguments);
+      },
+      failed() {
+        console.log("error");
+      }
+    })(props => <button {...props} />);
+
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={"paper"}>
+          <Avatar
+            className={"avatar"}
+            alt="LOG IN to FLICKR"
+            src={SignInIcon}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+
+          <Typography component="h1" variant="h5">
+            Sign in to Flickr
+          </Typography>
+          <form
+            onSubmit={this.handleSignin.bind(this)}
+            //className={useStyles.form}
+            noValidate
           >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              ref="username"
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              ref="password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              //className={useStyles.submit}
+              disabled={oauth.authenticating}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Signin provider="flickr">Signin with Flickr</Signin>
+              <hr />
+              <Signout>Signout</Signout>
             </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
-  );
+          </form>
+        </div>
+      </Container>
+    );
+  }
 }
+
+// export default connect(mapStateToProps)(withStyles(useStyles)(SignIn));
+// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App));
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(withStyles(useStyles)(SignIn));
+// export default compose(
+//     withStyles(styles, { name: 'Cart' }),
+//     connect(mapStateToProps, null)
+//   )(Cart);
+// export default connect(mapStateToProps)(withStyles(useStyles)(SignIn));
+
+export default //compose(
+//withStyles(useStyles, { name: "SignIn" }),
+connect(
+  mapStateToProps
+  //)
+)(SignIn);
