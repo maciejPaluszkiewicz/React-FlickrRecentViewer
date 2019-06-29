@@ -22,7 +22,7 @@ const FavLegend = props => {
           m={2}
           style={{ display: "block" }}
         >
-          Owner: {props.owner}
+          Owner: <span style={{ fontWeight: "bold" }}>{props.owner}</span>
         </Box>
         <Box
           className="imageDate"
@@ -31,7 +31,7 @@ const FavLegend = props => {
           m={3}
           style={{ display: "block" }}
         >
-          Date: {props.date}
+          Date: <span style={{ fontWeight: "bold" }}>{props.date} </span>
         </Box>
         <Box
           className="stats"
@@ -42,7 +42,11 @@ const FavLegend = props => {
         >
           <span>
             Views:{" "}
-            <Box style={{ fontSize: 16, display: "inline" }}>{props.views}</Box>{" "}
+            <Box
+              style={{ fontSize: 16, display: "inline", fontWeight: "bold" }}
+            >
+              {props.views}
+            </Box>{" "}
           </span>
           {/* <span>
             Favorites:{" "}

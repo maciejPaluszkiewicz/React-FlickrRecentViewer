@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import Image from "./Image";
 import { fetchPhoto, selectPhoto } from "../actions";
 import Spinner from "./Spinner";
 import { makeStyles } from "@material-ui/core/styles";
 import { flexbox } from "@material-ui/system";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 const mapStateToProps = state => {
   return { photos: state.root.photos };
@@ -18,23 +20,25 @@ const mapDispatchToProps = dispatch => {
 };
 
 const useStyles = makeStyles(theme => ({
-  // root: {
-  //   flexGrow: 1,
-  //   paddingTop: 90
-  // },
-  // paper: {
-  //   padding: theme.spacing(2),
-  //   textAlign: "center",
-  //   color: theme.palette.text.secondary,
-  //   fontSize: 16
-  // },
+  root: {
+    flexGrow: 1,
+    paddingTop: 90
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+    fontSize: 16
+  },
   recentBox: {
-    marginTop: "5%"
+    marginTop: "3%",
+    marginLeft: "5%"
   },
   recentImages: {
     display: "flex",
     flexWrap: "wrap",
-    alignContent: "flex-start",
+    padding: theme.spacing(2),
+    // alignContent: "flex-start",
     justifyContent: "space-around"
   }
 }));
@@ -51,11 +55,21 @@ const RecentImages = props => {
 
   if (props.photos.length > 0) {
     return (
-      <div className={classes.recentBox}>
-        <div className={classes.recentImages}>
-          {props.photos.map(el => (
-            <Image {...el} key={el.id} handleClick={props.selectImage} />
-          ))}
+      <div className={classes.root}>
+        <div className={classes.recentBox}>
+          <Grid container spacing={8}>
+            <div className={classes.recentImages}>
+              {/* <Fragment> */}
+
+              {props.photos.map(el => (
+                <Grid item xs={3}>
+                  <Image {...el} key={el.id} handleClick={props.selectImage} />
+                </Grid>
+              ))}
+
+              {/* </Fragment> */}
+            </div>
+          </Grid>
         </div>
       </div>
     );
