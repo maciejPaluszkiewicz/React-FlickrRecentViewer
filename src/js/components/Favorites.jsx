@@ -29,7 +29,13 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    fontSize: 16
+    fontSize: 16,
+    width: "40%",
+    marginLeft: "2%",
+    marginTop: "1%",
+    display: "flex",
+    direction: "row",
+    alignContent: "space-between"
   }
 }));
 
@@ -42,18 +48,22 @@ const Favorites = props => {
       <div className={classes.root}>
         <Grid container spacing={6}>
           {props.favs.map(el => (
+            // <Paper className={classes.paper}>
             <Fragment>
-              <Grid item xs={3}>
-                <Paper className={classes.paper} key={el.id}>
+              <Paper className={classes.paper} key={el.id}>
+                <Grid item xs={6}>
+                  {/* <Paper className={classes.paper} key={el.id}> */}
                   <Image url={el.url} handleClick={() => {}} />
-                </Paper>
-              </Grid>
-              <Grid item xs={3}>
-                <Paper className={classes.paper}>
+                  {/* </Paper> */}
+                </Grid>
+                <Grid item xs={6}>
+                  {/* <Paper className={classes.paper}> */}
                   <FavLegend {...el} />
-                </Paper>
-              </Grid>
+                  {/* </Paper> */}
+                </Grid>
+              </Paper>
             </Fragment>
+            // </Paper>
           ))}
         </Grid>
       </div>
