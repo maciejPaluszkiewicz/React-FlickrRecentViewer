@@ -57,8 +57,9 @@ class SignIn extends React.Component {
     dispatch(
       actions.config({
         token: "request_token",
-        client_id: USER_ID,
-        client_secret: API_KEY,
+        //client_id: USER_ID,
+        //client_secret: API_KEY,
+        oauth_consumer_key: API_KEY,
         url: OAUTH_URL,
         providers: {
           flickr: "authorize"
@@ -87,19 +88,19 @@ class SignIn extends React.Component {
     // const classes = useStyles();
 
     const { oauth } = this.props;
-    const Signin = signin({
+    /*const Signinsubcomponent = signin({
       success(user) {
         console.log(user);
       }
     })(props => <button {...props} />);
-    const Signout = signout({
+    const Signoutsubcomponent = signout({
       success() {
         console.log(arguments);
       },
       failed() {
         console.log("error");
       }
-    })(props => <button {...props} />);
+    })(props => <button {...props} />);*/
 
     return (
       <Container component="main" maxWidth="xs">
@@ -154,9 +155,11 @@ class SignIn extends React.Component {
               Sign In
             </Button>
             <Grid container>
-              <Signin provider="flickr">Signin with Flickr</Signin>
+              {/* <Signinsubcomponent provider="flickr">
+                Signin with Flickr
+              </Signinsubcomponent>
               <hr />
-              <Signout>Signout</Signout>
+              <Signoutsubcomponent>Signout</Signoutsubcomponent> */}
             </Grid>
           </form>
         </div>
@@ -165,21 +168,10 @@ class SignIn extends React.Component {
   }
 }
 
-// export default connect(mapStateToProps)(withStyles(useStyles)(SignIn));
-// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App));
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(withStyles(useStyles)(SignIn));
-// export default compose(
-//     withStyles(styles, { name: 'Cart' }),
-//     connect(mapStateToProps, null)
-//   )(Cart);
-// export default connect(mapStateToProps)(withStyles(useStyles)(SignIn));
-
-export default //compose(
-//withStyles(useStyles, { name: "SignIn" }),
-connect(
-  mapStateToProps
-  //)
+export default compose(
+  connect(
+    mapStateToProps,
+    null
+  ),
+  withStyles(useStyles, { name: "SignIn" })
 )(SignIn);

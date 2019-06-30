@@ -1,5 +1,4 @@
 import React from "react";
-import "./Header.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
@@ -17,6 +16,10 @@ const RecentPhotosLink = React.forwardRef((props, ref) => (
 
 const FavoritesLink = React.forwardRef((props, ref) => (
   <Link innerRef={ref} to="/favs" {...props} />
+));
+
+const LogInLink = React.forwardRef((props, ref) => (
+  <Link innerRef={ref} to="/sign" {...props} />
 ));
 
 const useStylesFunction = makeStyles(theme => ({
@@ -49,7 +52,7 @@ const Header = () => {
 
   return (
     <div className={useStyles.grow}>
-      <AppBar position="static" m={12} position="fixed">
+      <AppBar m={12} position="fixed">
         <Toolbar>
           <Box>
             <Typography
@@ -80,12 +83,13 @@ const Header = () => {
               FAVORITES
             </Button>
           </Box>
-
-          <Avatar
-            alt="LOG IN to FLICKR"
-            src={flckr}
-            className={useStyles.avatar}
-          />
+          <Button component={LogInLink}>
+            <Avatar
+              alt="LOG IN to FLICKR"
+              src={flckr}
+              className={useStyles.avatar}
+            />
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

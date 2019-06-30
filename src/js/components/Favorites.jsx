@@ -2,7 +2,6 @@ import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import Image from "./Image";
 import FavLegend from "./FavLegend";
-import "./Favorites.css";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
