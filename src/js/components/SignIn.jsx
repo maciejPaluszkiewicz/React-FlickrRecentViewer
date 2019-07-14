@@ -23,7 +23,8 @@ const mapStateToProps = state => {
 const useStyles = theme => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white
+      backgroundColor: theme.palette.common.white,
+      paddingTop: 90
     }
   },
   paper: {
@@ -34,6 +35,7 @@ const useStyles = theme => ({
   },
   avatar: {
     margin: theme.spacing(1)
+    // display: "inline-block"
     // backgroundColor: theme.palette.secondary.main
   },
   form: {
@@ -52,7 +54,7 @@ class SignIn extends React.Component {
   // }
 
   componentWillMount() {
-    // const { classes } = this.props;
+    const { classes } = this.props;
     const { dispatch } = this.props;
     dispatch(
       actions.config({
@@ -88,7 +90,7 @@ class SignIn extends React.Component {
     // const classes = useStyles();
 
     const { oauth } = this.props;
-    /*const Signinsubcomponent = signin({
+    const Signinsubcomponent = signin({
       success(user) {
         console.log(user);
       }
@@ -100,21 +102,23 @@ class SignIn extends React.Component {
       failed() {
         console.log("error");
       }
-    })(props => <button {...props} />);*/
+    })(props => <button {...props} />);
 
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={"paper"}>
-          <Avatar
-            className={"avatar"}
-            alt="LOG IN to FLICKR"
-            src={SignInIcon}
-          />
+          <Grid>
+            <Avatar
+              className={"avatar"}
+              alt="LOG IN to FLICKR"
+              src={SignInIcon}
+            />
 
-          <Typography component="h1" variant="h5">
-            Sign in to Flickr
-          </Typography>
+            <Typography component="h1" variant="h5">
+              Sign in to Flickr
+            </Typography>
+          </Grid>
           <form
             onSubmit={this.handleSignin.bind(this)}
             //className={useStyles.form}

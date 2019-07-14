@@ -3,13 +3,14 @@ import Header from "./js/components/Header";
 import RecentImages from "./js/components/RecentImages";
 import Favorites from "./js/components/Favorites";
 import SignIn from "./js/components/SignIn";
+import UnderConstruction from "./js/components/UnderConstruction";
 import "./App.css";
-import { BrowserRouter, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import { StickyContainer, Sticky } from "react-sticky";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <StickyContainer>
         <div>
           <Sticky position="fixed">
@@ -17,11 +18,11 @@ function App() {
           </Sticky>
 
           <Route path="/" exact component={RecentImages} />
-          <Route path="/sign" exact component={SignIn} />
+          <Route path="/sign" exact component={UnderConstruction} />
           <Route path="/favs" exact component={Favorites} />
         </div>
       </StickyContainer>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
